@@ -1,3 +1,9 @@
 {
-    
+    "python.autoComplete.preloadModules": [
+        
+    ],
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/venv/lib/python3.7/site-packages"
+    ],
+    "python.venvPath": "${workspaceFolder}/venv"
 }
