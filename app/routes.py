@@ -9,6 +9,7 @@ from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 from app import db
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -31,7 +32,7 @@ def login():
 @app.route('/index')
 @login_required
 def index():
-    print('you are here')
+    
     user = {'username': 'BBB'}
     posts = [{
         'author': {
@@ -66,3 +67,16 @@ def register():
         flash('Congratulations,you are now a registered user')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    print('enter user profile')
+    user = User.query.filter_by(username=username).first_or_404()
+    print(user.username)
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html', user=user, posts=posts)
